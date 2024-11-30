@@ -6,20 +6,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/xymol-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/xymol-{{ version }}.tar.gz
   sha256: ff9ac8aa44240052f467551ce26202aa44b23d23d5ff1b6eaf90cb767d739518
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.7
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.7
+    - python >={{ python_min }}
     - rdkit
     - numpy
     - matplotlib-base
@@ -29,6 +29,7 @@ test:
     - xymol
   requires:
     - pytest
+    - python {{ python_min }}
   source_files:
     - tests
   commands:
